@@ -23,3 +23,42 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Screenplay Element Styling */
+[data-screenplay-type="character"] {
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 1rem 0;
+}
+
+[data-screenplay-type="dialogue"] {
+  margin-left: 6rem;
+  margin-right: 8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+[data-screenplay-type="slugline"] {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 1rem 0;
+}
+
+[data-screenplay-type="action"] {
+  margin: 0.5rem 0;
+}
+
+[data-screenplay-type="parenthetical"] {
+  margin-left: 5rem;
+  margin-right: 10rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  font-style: italic;
+}
+
+/* Poetry stanza spacing */
+.stanza-break {
+  margin: 2rem 0;
+}
+
