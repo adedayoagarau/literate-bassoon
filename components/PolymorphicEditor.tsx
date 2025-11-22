@@ -88,21 +88,14 @@ export default function PolymorphicEditor({ mode, zenMode }: PolymorphicEditorPr
         const elementType = detectScreenplayElement(textBefore)
         
         // Apply appropriate styling based on detected element
+        // In a future version, this will apply custom node types
+        // For now, the detection is used for potential auto-formatting
         if (elementType === 'character') {
           // After a character name, prepare for dialogue
-          setTimeout(() => {
-            const currentPos = editor.state.selection.from
-            const currentPara = editor.state.doc.nodeAt(currentPos - 1)
-            if (currentPara) {
-              // In a real implementation, we would apply custom node types here
-              // For now, we'll use CSS classes
-              console.log('CHARACTER detected:', textBefore)
-            }
-          }, 0)
+          // Future: Apply dialogue node type
         } else if (elementType === 'slugline') {
-          setTimeout(() => {
-            console.log('SLUGLINE detected:', textBefore)
-          }, 0)
+          // After a slugline, prepare for action
+          // Future: Apply action node type
         }
       }
     }

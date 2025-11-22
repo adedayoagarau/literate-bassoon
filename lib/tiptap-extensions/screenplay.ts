@@ -1,5 +1,21 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 
+/**
+ * Custom Tiptap extensions for screenplay formatting.
+ * 
+ * These extensions define custom node types for screenplay elements:
+ * - Character names (centered, uppercase)
+ * - Dialogue (indented from both sides)
+ * - Sluglines/Scene headings (uppercase, bold)
+ * - Action/Description (normal text)
+ * - Parentheticals (indented, italic)
+ * 
+ * Note: These are currently not integrated into the main editor but serve
+ * as a foundation for future screenplay-specific formatting features.
+ * To use these, they need to be added to the editor's extensions array
+ * and integrated with the screenplay detection logic.
+ */
+
 export const ScreenplayCharacter = Node.create({
   name: 'screenplayCharacter',
 
