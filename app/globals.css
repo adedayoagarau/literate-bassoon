@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Typewriter scrolling - keep caret centered */
+.typewriter-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar in zen mode */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
