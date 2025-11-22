@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A distraction-free novel writing application">
+    <title>Novel Writer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="app-title">Novel Writer</h1>
+            <div class="stats">
+                <span id="wordCount">Words: 0</span>
+                <span id="charCount">Characters: 0</span>
+            </div>
+        </header>
+
+        <!-- Chapter Management -->
+        <div class="chapter-bar">
+            <div class="chapter-controls">
+                <button id="newChapterBtn" class="btn btn-primary">+ New Chapter</button>
+                <button id="deleteChapterBtn" class="btn btn-danger">Delete Chapter</button>
+            </div>
+            <select id="chapterSelect" class="chapter-select">
+                <option value="0">Chapter 1</option>
+            </select>
+        </div>
+
+        <!-- Writing Area -->
+        <div class="editor-container">
+            <input 
+                type="text" 
+                id="chapterTitle" 
+                class="chapter-title-input" 
+                placeholder="Chapter Title"
+                maxlength="100"
+            />
+            <textarea 
+                id="editor" 
+                class="editor" 
+                placeholder="Start writing your novel here..."
+                spellcheck="true"
+            ></textarea>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <button id="exportBtn" class="btn btn-secondary">Export</button>
+            <button id="clearAllBtn" class="btn btn-danger">Clear All</button>
+            <span class="auto-save-indicator" id="autoSaveStatus">Auto-saved</span>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
