@@ -2,19 +2,38 @@
 
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { useEditorConfig } from '@/hooks/useEditorConfig'
 import { ProjectType } from '@/lib/types'
-import { useEffect, useRef } from 'react'
+import { EditorSettings } from '@/lib/settings'
+import { useEffect, useRef, useCallback } from 'react'
 import { detectScreenplayElement } from '@/lib/screenplay-utils'
 
 interface PolymorphicEditorProps {
   mode: ProjectType
   zenMode: boolean
+  content: string
+  settings: EditorSettings
+  onContentChange: (content: string) => void
 }
 
-export default function PolymorphicEditor({ mode, zenMode }: PolymorphicEditorProps) {
-  const config = useEditorConfig(mode)
+export default function PolymorphicEditor({
+  mode,
+  zenMode,
+  content,
+  settings,
+  onContentChange,
+}: PolymorphicEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null)
+  const debounceTimerRef = useRef<NodeJS.Timeout | undefined>(undefined)
+
+  // Debounced content change handler
+  const debouncedContentChange = useCallback((newContent: string) => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current)
+    }
+    debounceTimerRef.current = setTimeout(() => {
+      onContentChange(newContent)
+    }, 300) // 300ms debounce
+  }, [onContentChange])
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -28,21 +47,34 @@ export default function PolymorphicEditor({ mode, zenMode }: PolymorphicEditorPr
         },
       }),
     ],
-    content: getPlaceholderContent(mode),
+    content: content,
+    onUpdate: ({ editor }) => {
+      debouncedContentChange(editor.getHTML())
+    },
     editorProps: {
       attributes: {
         class: `prose prose-lg max-w-none focus:outline-none min-h-full px-16 py-12 ${
           mode === 'poem' ? 'whitespace-pre-wrap' : ''
         }`,
         style: `
-          font-family: ${config.fontFamily};
-          font-size: ${config.fontSize};
-          line-height: ${config.lineHeight};
+          font-family: ${settings.fontFamily};
+          font-size: ${settings.fontSize}pt;
+          line-height: ${settings.lineHeight};
+          text-align: ${settings.textAlign};
           color: ${zenMode ? '#333' : '#1f2937'};
         `,
       },
     },
   })
+
+  // Cleanup debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current)
+      }
+    }
+  }, [])
 
   // Implement typewriter scrolling - keep caret centered
   useEffect(() => {
@@ -130,15 +162,3 @@ export default function PolymorphicEditor({ mode, zenMode }: PolymorphicEditorPr
   )
 }
 
-function getPlaceholderContent(mode: ProjectType): string {
-  switch (mode) {
-    case 'novel':
-      return '<p>Chapter One</p><p>The story begins here...</p>'
-    case 'script':
-      return '<p>FADE IN:</p><p></p><p>INT. COFFEE SHOP - DAY</p><p></p><p>A cozy neighborhood cafe. Morning light streams through the windows.</p><p></p><p>SARAH</p><p>I never expected to find you here.</p>'
-    case 'poem':
-      return '<p>A single line of verse</p><p>Another line of verse</p><p></p><p>A new stanza begins</p>'
-    default:
-      return '<p></p>'
-  }
-}
