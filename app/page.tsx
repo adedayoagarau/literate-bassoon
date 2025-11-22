@@ -1,7 +1,7 @@
 'use client'
 
-import EditorLayout from '@/components/EditorLayout'
+import EditorLayoutMinimal from '@/components/EditorLayoutMinimal'
 
 export default function Home() {
-  return <EditorLayout />
+  return <EditorLayoutMinimal />
 }

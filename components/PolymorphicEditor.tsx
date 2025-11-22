@@ -141,21 +141,16 @@ export default function PolymorphicEditor({
   }, [editor, mode])
 
   return (
-    <div
-      ref={editorRef}
-      className={`h-full overflow-y-auto typewriter-scroll ${
-        zenMode ? 'hide-scrollbar bg-paper' : 'bg-white'
-      }`}
-    >
-      <EditorContent editor={editor} />
-      
-      {/* Info overlay for screenplay mode */}
+    <div className="h-full overflow-y-auto bg-white flex justify-center">
+      <div className="w-full max-w-[650px] px-8 py-12">
+        <EditorContent editor={editor} />
+      </div>
+
+      {/* Screenplay tips overlay - subtle */}
       {mode === 'script' && !zenMode && (
-        <div className="fixed bottom-4 right-4 bg-gray-800 text-white text-xs px-4 py-2 rounded shadow-lg opacity-50 hover:opacity-100 transition-opacity">
-          <div className="font-semibold mb-1">Fountain Syntax Tips:</div>
-          <div>• INT./EXT. = Scene Heading</div>
-          <div>• ALL CAPS = Character Name</div>
-          <div>• (parenthetical) = Parenthetical</div>
+        <div className="fixed bottom-20 right-8 text-xs text-gray-400 opacity-50 hover:opacity-100 transition-opacity">
+          <div>INT./EXT. = Scene</div>
+          <div>ALL CAPS = Character</div>
         </div>
       )}
     </div>
